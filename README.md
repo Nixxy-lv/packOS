@@ -14,7 +14,7 @@
 </p>
 
 <h2 align="center">What is this Repo?</h2>
-<p align="center">This is a recreation of my mini "OS" from C to Rust</p>
+<p align="center">This is a recreation of my mini "OS" from C to Rust <a href="https://github.com/Nixxy-lv/packOS-old">C Version</a></p>
 
 <h2 align="center">Why?</h2>
 <p align="center">This was made to experiment with Rust</p>
