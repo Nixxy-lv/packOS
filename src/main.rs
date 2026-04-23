@@ -1,7 +1,12 @@
+use std::env;
 use std::io::{self, Write};
 use std::process::Command;
 use std::thread::sleep;
 use std::time::Duration;
+
+fn flush() {
+    io::stdout().flush().unwrap();
+}
 
 fn sys(cmd: &str) {
     let status = Command::new("sh")
@@ -15,16 +20,29 @@ fn sys(cmd: &str) {
     }
 }
 
+fn get_py() -> (String, String) {
+    let got_input = std::env::args().collect::<Vec<String>>();
+
+    let usr = got_input.get(1).cloned().unwrap_or_default();
+    let pult = got_input.get(2).cloned().unwrap_or_default();
+
+    (usr,pult)
+}
+
 fn kernel_main() {
     sys("printf '\\033[33m'; figlet PackON Boot; printf '\\033[0m'");
-    println!("\nWelcome to PackOS\n\nType 'bot' to boot\n\nPizza&Muncher $ ");
-    io::stdout().flush().unwrap();
+    println!("");
+    sys("python src_python/start.py");
+    print!("\nWelcome to PackOS\n\nType 'bot' to boot\n\nPizza&Muncher $ ");
+    flush();
 }
 
 fn main() {
     sys("clear");
 
     kernel_main();
+
+    let (usr, pult) = get_py();
 
     let mut bot = String::new();
     io::stdin().read_line(&mut bot).unwrap();
@@ -58,8 +76,8 @@ fn main() {
         println!("Welcome to packOS!\nuse lst -cm to list commands\n");
 
         loop {
-            print!(" i> ");
-            io::stdout().flush().unwrap();
+            print!(" \x1B[3mi\x1B[0m> ");
+            flush();
 
             let mut input1 = String::new();
             if io::stdin().read_line(&mut input1).is_err() {
@@ -78,10 +96,12 @@ fn main() {
                 sys("python src_python/rand.py");
             } else if input1 == "clear" {
                 sys("clear");
+            } else if input1 == "CHNL:" {
+                println!("Alpha 0.7.0 -Added Authentication with python and changelog command");
             } else if input1 == "SYSTEM:" {
                 println!("Rust PackOS -ver: (NOT FULL) Start-Release 0.6.1");
             } else if input1 == "SHELL:" {
-                println!("PacKSHell-KSH, The Package-based Shell -ver Alpha 0.5.5");
+                println!("PacKSHell-KSH, The Package-based Shell -ver Alpha 0.7.0");
             } else if input1 == "Pult -gt pizza" {
                 println!("Pizza@Ultimate > Yo i want that too.");
             } else if input1 == "TERM:" {
@@ -115,7 +135,7 @@ r"             ________
             } else if input1 == "lst" {
                 sys("ls");
             } else if input1 == "lst -cm" {
-                println!("lst = list current directory's files\nlst -cm = show this list\npkmg -in <pkg> = install package\npkmg -in -y <pkg> = install and always reply yes\npkmg -rm <pkg> = remove package\npkmg -up = package update\npkmg -ug = package upgrade\npkmg -up -ug = package update & upgrade\ngen num = random number generation\nlog out = shut down\nSYSTEM: = display used ONS and its version\nSHELL: = display used Shell and its version\nTERM: = display Terminal name\nASCIILOGO: = displays ASCII logo of PackOS\nclear = clear screen\n\nCURRENTLY USELESS:\nPudo = Lets root do a task\nPumk = Lets root make something\nPugt = Lets root install something\nPult = Ultinate command for root\n\nPIZZA-ULTIMATE: (out of service)\nPult -mkd = make directory with root\nPult -mkf = make file with root\nPult -en = enter a service with root\nPult -gt = install with root\nPult -rm = remove with root\nPult -rm -f = force remove with root\n");
+                println!("lst = list current directory's files\nlst -cm = show this list\npkmg -in <pkg> = install package\npkmg -in -y <pkg> = install and always reply yes\npkmg -rm <pkg> = remove package\npkmg -up = package update\npkmg -ug = package upgrade\npkmg -up -ug = package update & upgrade\ngen num = random number generation\nlog out = shut down\nCHNL: = Shows latest changes\nSYSTEM: = display used ONS and its version\nSHELL: = display used Shell and its version\nTERM: = display Terminal name\nASCIILOGO: = displays ASCII logo of PackOS\nclear = clear screen\n\nCURRENTLY USELESS:\nPudo = Lets root do a task\nPumk = Lets root make something\nPugt = Lets root install something\nPult = Ultinate command for root\n\nPIZZA-ULTIMATE: (out of service)\nPult -mkd = make directory with root\nPult -mkf = make file with root\nPult -en = enter a service with root\nPult -gt = install with root\nPult -rm = remove with root\nPult -rm -f = force remove with root\n");
             } else if input1 == "log out" || input1 == "lgo" {
                 sys("clear");
                 break;
