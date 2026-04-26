@@ -31,11 +31,14 @@
 > [!NOTE]
 > I might make the program auto run `install/` in the future.
 
-## What is in the build ##
-compiled code with Clang tool
+<h2 align="center">What is in the dorm?</h2>
+<p align="center">that's the equivalent of `~/`</p>
 
-## What is in the src ##
-code for the program and also future equivalent to home folder (dorm).
+<h2 align="center">What is in the src?</h2>
+<p align="center">all rust code needed</p>
+
+<h2 align="center">What is in the src_python?</h2>
+<p align="center">python helper scripts</p>
 
 <h2 align="center">Why?</h2>
 <p align="center">This was made to experiment with Rust and optimize the system itself</p>
