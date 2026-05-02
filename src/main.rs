@@ -21,6 +21,7 @@ fn sys(cmd: &str) {
 }
 
 fn get_py() -> (String, String) {
+    // THIS GIVES PERMISSION TO LOADING SCRIPTS
     let got_input = std::env::args().collect::<Vec<String>>();
 
     let usr = got_input.get(1).cloned().unwrap_or_default();
@@ -38,6 +39,7 @@ fn kernel_main() {
     ╚═╝     ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
                                                        
     \x1b[0m");
+    sys("chmod +x ./loading/load.sh");
     println!("");
     sys("python src_python/start.py");
     print!("\nWelcome to PackOS\n\nType 'bot' to boot\n\nPizza&Muncher $ ");
@@ -56,6 +58,7 @@ fn main() {
     let bot = bot.trim();
 
     if bot == "bot" {
+        sys("./loading/load.sh");
         sys("clear");
         sleep(Duration::from_micros(1_000_000));
         println!("\n[ \x1b[32mOK\x1b[0m ] Found pizza...");
@@ -102,6 +105,7 @@ fn main() {
             } else if input1 == "gen num" {
                 sys("python src_python/rand.py");
             } else if input1 == "pkui on" {
+                sys("./loading/load.sh");
                 sys("cargo run --bin tui");
             } else if input1 == "clear" {
                 sys("clear");
@@ -121,7 +125,7 @@ r"             ________
             /$$$$$$$¢\
           /$$$$$$$$$$$$\
         /$$$$$$$$$$$$$$$$$\
-        |$$$$$ .$$$$$$$$$$$$$\
+        |$$$$$'.-$$$$$$$$$$$$\
         \$$$$$$$$$$$$$$$$$$$$$$\______________
          $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\
           \$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|
@@ -144,6 +148,7 @@ r"             ________
             } else if input1 == "lst" {
                 sys("ls ./dorm");
             } else if input1 == "lst -cm" {
+                sys("./loading/load.sh");
                 println!("\nlst = list current directory's files\nlst -cm = show this list\npkmg -in <pkg> = install package\npkmg -in -y <pkg> = install and always reply yes\npkmg -rm <pkg> = remove package\npkmg -up = package update\npkmg -ug = package upgrade\npkmg -up -ug = package update & upgrade\npkui on = Package installer TUI\ngen num = random number generation\nlog out = shut down\nCHNL: = Shows latest changes\nSYSTEM: = display used ONS and its version\nSHELL: = display used Shell and its version\nTERM: = display Terminal name\nASCIILOGO: = displays ASCII logo of PackOS\nclear = clear screen\n\nCURRENTLY USELESS:\nPudo = Lets root do a task\nPumk = Lets root make something\nPugt = Lets root install something\nPult = Ultinate command for root\n\nPIZZA-ULTIMATE: (out of service)\nPult -mkd = make directory with root\nPult -mkf = make file with root\nPult -en = enter a service with root\nPult -gt = install with root\nPult -rm = remove with root\nPult -rm -f = force remove with root\n");
             } else if input1 == "log out" || input1 == "lgo" {
                 sys("clear");
